@@ -1,12 +1,13 @@
 #imports
 from random import *
 import string
+import time
+import pyperclip
 from tkinter import * #importing all elements of the package
 title = "password generator"
 
 #create window
 window = Tk() #new instance of "Tk" class of tkinter
-
 #create the function that will generate the password
 def gen_password():
     password_min = 12
@@ -16,6 +17,10 @@ def gen_password():
     password = "".join(choice(all_chars) for i in range(randint(password_min, password_max)))
     pass_entry.delete(0, END)
     pass_entry.insert(0, password)
+    butt1.pack()
+#create the function that will add the entry in the clipboard of the user
+def copy():
+    pyperclip.copy(pass_entry.get())
 
 #personalization
 window.title("password generator")
@@ -27,7 +32,6 @@ window.maxsize(800, 500)
 window.iconbitmap("lock.ico")
 #changing background color
 window.config(background='#41B77F') #Green
-
 #create main frame
 frame = Frame(window, bg="#41B77F")
 
@@ -53,6 +57,12 @@ pass_entry.pack()
 #creating the button that will generate the random password
 butt = Button(right_frame, text="Generate", font=("Helvetica",20), bg="#41B77F", fg="White", command=gen_password)
 butt.pack(fill=X)
+
+#creating the button that will copy the password
+butt1 = Button(right_frame, text="Copy", font=("Helvetica",20), bg="#41B77F", fg="White", command=copy)
+
+#create the text that will inform the user
+label_copy = Label(right_frame, text="Copied !", font=("Helvetica",20), bg="#41B77F", fg="White")
 
 #displaying subframe
 right_frame.grid(row=0, column=1, sticky=W)
